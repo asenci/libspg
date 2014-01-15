@@ -1,5 +1,9 @@
 # Python library for interacting with Brazil NPAC SPG
 
+  * Only BDO functions are implemented for now
+  * The XML schema (Brazil LNP Schema vX.Y.xsd) must be copied to the package
+    directory with the file name "schema.xsd"
+
 ## Licensing:
 Licensed under ISC license:
 
