@@ -200,7 +200,7 @@ class BaseType(object):
                     value = self.format_for_set(value)
 
             except TypeError as e:
-                if e.message:
+                if str(e):
                     raise e
 
                 raise TypeError('Invalid type "{0}" for {1} "{2}"'.format(
@@ -402,7 +402,7 @@ class String(BaseType):
                 self.validate(value)
 
             except ValueError as e:
-                if e.message:
+                if str(e):
                     raise e
 
                 raise ValueError('Invalid value for {0} "{1}": "{2}"'.format(
