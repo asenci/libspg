@@ -1082,6 +1082,18 @@ class Message(XMLObject):
     def __str__(self):
         return ElementBase.to_string(self, validate=True)
 
+    @property
+    def invoke_id(self):
+        return self.message_header.invoke_id
+
+    @property
+    def message_date_time(self):
+        return self.message_header.message_date_time
+
+    @property
+    def service_prov_id(self):
+        return self.message_header.service_prov_id
+
     @classmethod
     def from_string(cls, string):
         """Return an object instance from a XML string"""

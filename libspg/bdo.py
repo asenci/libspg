@@ -131,8 +131,8 @@ class SVCreateDownload(BDRtoBDO):
 
         return DownloadReply(
             libspg.MessageHeader(
-                service_prov_id=self.message_header.service_prov_id,
-                invoke_id=self.message_header.invoke_id,
+                service_prov_id=self.service_prov_id,
+                invoke_id=self.invoke_id,
                 message_date_time=libspg.datetime.utcnow()
             ),
             reply
@@ -165,8 +165,8 @@ class SVDeleteDownload(BDRtoBDO):
 
         return DownloadReply(
             libspg.MessageHeader(
-                service_prov_id=self.message_header.service_prov_id,
-                invoke_id=self.message_header.invoke_id,
+                service_prov_id=self.service_prov_id,
+                invoke_id=self.invoke_id,
                 message_date_time=libspg.datetime.utcnow()
             ),
             reply
@@ -182,8 +182,8 @@ class QueryBdoSVs(BDRtoBDO):
     def reply(self, sv_list):
         return QueryBdoSVsReply(
             libspg.MessageHeader(
-                service_prov_id=self.message_header.service_prov_id,
-                invoke_id=self.message_header.invoke_id,
+                service_prov_id=self.service_prov_id,
+                invoke_id=self.invoke_id,
                 message_date_time=libspg.datetime.utcnow()
             ),
             sv_list
