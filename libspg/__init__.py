@@ -248,17 +248,18 @@ class XMLObject(object):
             if value is not None or not attr.blank:
                 element = E(attr.tag)
 
-                if isinstance(value, (str, unicode)):
-                    element.text = value
+                if value is not None:
+                    if isinstance(value, (str, unicode)):
+                        element.text = value
 
-                elif isinstance(value, list):
-                    for e in value:
-                        if attr.inner_tag:
-                            element.append(E(attr.inner_tag, *e))
-                        else:
-                            element.extend(e)
-                else:
-                    element.extend(value)
+                    elif isinstance(value, list):
+                        for e in value:
+                            if attr.inner_tag:
+                                element.append(E(attr.inner_tag, *e))
+                            else:
+                                element.extend(e)
+                    else:
+                        element.extend(value)
 
                 yield element
 
@@ -422,16 +423,16 @@ class String(BaseType):
 class Boolean(String):
 
     def format_for_get(self, value):
-        return value == 'true'
+        return value in ['1', 'true']
 
     def format_for_set(self, value):
         if isinstance(value, bool):
-            value = 'true' if value else 'false'
+            value = '1' if value else '0'
 
         return super(Boolean, self).format_for_set(value)
 
     def validate(self, value):
-        if value not in ['true', 'false']:
+        if value not in ['0', '1', 'true', 'false']:
             raise ValueError()
 
 
@@ -441,16 +442,19 @@ class DateTime(String):
     datetime_format = '%Y-%m-%dT%H:%M:%SZ'
 
     def format_for_get(self, value):
-        return datetime.strptime(value, self.datetime_format)
+        return datetime.strptime(value[:19] + 'Z', self.datetime_format)
 
     def format_for_set(self, value):
         if isinstance(value, datetime):
             value = value.strftime(self.datetime_format)
 
+        elif isinstance(value, (str, unicode)):
+            value = value[:19] + 'Z'
+
         return super(DateTime, self).format_for_set(value)
 
     def validate(self, value):
-        datetime.strptime(value, self.datetime_format)
+        datetime.strptime(value[:19] + 'Z', self.datetime_format)
 
 
 class Integer(String):
@@ -624,6 +628,8 @@ class BdoCompletionTS(XMLObject):
 
 
 class CustomerID(XMLObject):
+
+    # todo: Element '{urn:brazil:lnp:1.0}CPF': This element is not expected. Expected is one of ( {urn:brazil:lnp:1.0}individual, {urn:brazil:lnp:1.0}legal_entity )
 
     def __call__(self):
         # noinspection PySuperArguments
@@ -1024,6 +1030,8 @@ class SubscriptionVersionQueryReplyData(XMLObject):
 class SubscriptionVersionQueryRequestData(XMLObject):
     version_id = SubscriptionVersionId()
     query_expression = QueryExpression()
+
+    # todo: choices
 
     def __init__(self, version_id, query_expression):
         self.version_id = version_id
