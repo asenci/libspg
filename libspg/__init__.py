@@ -78,9 +78,13 @@ class ElementBase(etree.ElementBase):
         else:
             parser = XMLParser
 
+        # Avoid unicode strings with encoding declaration
+        if isinstance(string, unicode):
+            string = string.encode('utf-8')
+
         # Parse the XML string and validate the document
         try:
-            element = etree.fromstring(string.encode('utf-8'), parser=parser)
+            element = etree.fromstring(string, parser=parser)
         except Exception as e:
             raise Exception('Error processing XML:\n{0}\n{1}\n'.format(
                 string, e))
