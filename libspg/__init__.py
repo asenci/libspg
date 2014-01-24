@@ -46,25 +46,19 @@ class ElementBase(etree.ElementBase):
         return str(self).decode('utf-8')
 
     def find(self, path, namespaces=None):
-        if path[0] in ['{', '/', '.']:
-            pass
-        else:
+        if path[0] not in ['{', '/', '.']:
             path = QName(LNP_URI, path).text
 
         return super(ElementBase, self).find(path, namespaces)
 
     def findall(self, path, namespaces=None):
-        if path[0] in ['{', '/', '.']:
-            pass
-        else:
+        if path[0] not in ['{', '/', '.']:
             path = QName(LNP_URI, path).text
 
         return super(ElementBase, self).findall(path, namespaces)
 
     def findtext(self, path, default=None, namespaces=None):
-        if path[0] in ['{', '/', '.']:
-            pass
-        else:
+        if path[0] not in ['{', '/', '.']:
             path = QName(LNP_URI, path).text
 
         return super(ElementBase, self).findtext(path, default, namespaces)
@@ -102,6 +96,7 @@ class ElementBase(etree.ElementBase):
         return etree.tostring(
             element,
             encoding='utf-8',
+            xml_declaration=True,
             pretty_print=True,
             standalone=False,
         )
@@ -333,7 +328,7 @@ class Instance(BaseType):
         if isinstance(value, self.cls):
             return value
 
-        raise TypeError()
+        raise TypeError
 
 
 class InstanceList(BaseType):
@@ -370,7 +365,7 @@ class InstanceList(BaseType):
 
             return value
 
-        raise TypeError()
+        raise TypeError
 
 
 class String(BaseType):
@@ -415,7 +410,7 @@ class String(BaseType):
 
             return value
 
-        raise TypeError()
+        raise TypeError
 
     def validate(self, value):
         if self.min_length is not None and len(value) < self.min_length:
@@ -437,7 +432,7 @@ class Boolean(String):
 
     def validate(self, value):
         if value not in ['0', '1', 'true', 'false']:
-            raise ValueError()
+            raise ValueError
 
 
 class DateTime(String):
@@ -481,7 +476,7 @@ class NumericString(String):
         super(NumericString, self).validate(value)
 
         if not re.match(r'^\d*$', value):
-            raise ValueError()
+            raise ValueError
 
 
 class CNL(NumericString):
@@ -499,7 +494,7 @@ class CPF(String):
 class ConfirmationStatus(String):
     def validate(self, value):
         if value not in ['success', 'failed']:
-            raise ValueError()
+            raise ValueError
 
 
 class CustomerName(String):
@@ -509,19 +504,19 @@ class CustomerName(String):
 class CustomerType(String):
     def validate(self, value):
         if value not in ['legal_entity', 'individual']:
-            raise ValueError()
+            raise ValueError
 
 
 class DownloadReason(String):
     def validate(self, value):
         if value not in ['new', 'delete', 'modified']:
-            raise ValueError()
+            raise ValueError
 
 
 class DownloadReplyStatus(String):
     def validate(self, value):
         if value not in ['success', 'failed']:
-            raise ValueError()
+            raise ValueError
 
 
 class EOT(String):
@@ -535,7 +530,7 @@ class ErrorNumber(Integer):
 class ErrorStatus(String):
     def validate(self, value):
         if value not in ['success', 'session-invalid', 'failed']:
-            raise ValueError()
+            raise ValueError
 
 
 class FraudErrorJustification(String):
@@ -545,7 +540,7 @@ class FraudErrorJustification(String):
 class FraudErrorType(String):
     def validate(self, value):
         if value not in ['fraud', 'error']:
-            raise ValueError()
+            raise ValueError
 
 
 class GenericID(String):
@@ -555,13 +550,13 @@ class GenericID(String):
 class LineType(String):
     def validate(self, value):
         if value not in ['Basic', 'DDR', 'CNG']:
-            raise ValueError()
+            raise ValueError
 
 
 class LNPType(String):
     def validate(self, value):
         if value not in ['lspp', 'lisp']:
-            raise ValueError()
+            raise ValueError
 
 
 class OptionalData(String):
@@ -596,7 +591,7 @@ class ServiceProvName(String):
 class SubscriptionPreCancellationStatus(String):
     def validate(self, value):
         if value not in ['conflict', 'pending', 'disconnect_pending']:
-            raise ValueError()
+            raise ValueError
 
 
 class SubscriptionStatusChangeCauseCode(Integer):
@@ -613,7 +608,7 @@ class VersionStatus(String):
                          'download-failed', 'download-failed-partial',
                          'disconnect-pending', 'old', 'cancelled',
                          'cancel-pending', 'suspended']:
-            raise ValueError()
+            raise ValueError
 
 
 #
