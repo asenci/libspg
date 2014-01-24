@@ -46,19 +46,19 @@ class ElementBase(etree.ElementBase):
         return str(self).decode('utf-8')
 
     def find(self, path, namespaces=None):
-        if path[0] not in ['{', '/', '.']:
+        if isinstance(path, (str, unicode)) and path[0] not in ['{', '/', '.']:
             path = QName(LNP_URI, path).text
 
         return super(ElementBase, self).find(path, namespaces)
 
     def findall(self, path, namespaces=None):
-        if path[0] not in ['{', '/', '.']:
+        if isinstance(path, (str, unicode)) and path[0] not in ['{', '/', '.']:
             path = QName(LNP_URI, path).text
 
         return super(ElementBase, self).findall(path, namespaces)
 
     def findtext(self, path, default=None, namespaces=None):
-        if path[0] not in ['{', '/', '.']:
+        if isinstance(path, (str, unicode)) and path[0] not in ['{', '/', '.']:
             path = QName(LNP_URI, path).text
 
         return super(ElementBase, self).findtext(path, default, namespaces)
