@@ -77,13 +77,7 @@ class ElementBase(etree.ElementBase):
             string = string.encode('utf-8')
 
         # Parse the XML string and validate the document
-        try:
-            element = etree.fromstring(string, parser=parser)
-        except Exception as e:
-            raise Exception('Error processing XML:\n{0}\n{1}\n'.format(
-                string, e))
-
-        return element
+        return etree.fromstring(string, parser=parser)
 
     @staticmethod
     def to_string(element, validate=False):
