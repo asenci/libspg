@@ -91,7 +91,6 @@ class ElementBase(etree.ElementBase):
             element,
             encoding='utf-8',
             xml_declaration=True,
-            pretty_print=True,
             standalone=False,
         )
 
