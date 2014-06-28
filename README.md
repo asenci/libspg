@@ -4,10 +4,10 @@
   * The XML schema (Brazil LNP Schema vX.Y.xsd) must be copied to the package
     directory with the file name "schema.xsd"
 
+
 ## Licensing:
 Licensed under ISC license:
 
-    :::text
     Copyright (c) 2013 Andre Sencioles Vitorio Oliveira <andre@bcp.net.br>
 
     Permission to use, copy, modify, and distribute this software for any
