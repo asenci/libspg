@@ -17,6 +17,18 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 """
 
+__title__ = 'libspg'
+__summary__ = 'Python library for interacting with Brazil NPAC SPG'
+__url__ = 'http://bitbucket.org/asenci/libspg'
+
+__version__ = '0.2'
+
+__author__ = 'Andre Sencioles Vitorio Oliveira'
+__email__ = 'andre@bcp.net.br'
+
+__license__ = 'ISC License'
+
+
 from datetime import datetime
 from lxml import etree
 from lxml.builder import ElementMaker
@@ -133,7 +145,7 @@ class XMLObjectMeta(type):
             if hasattr(cls, '__descriptors__'):
                 desc_list.extend(cls.__descriptors__)
 
-        # Extend descriptor list witch class descriptors
+        # Extend descriptor list with class descriptors
         for attr_name, attr_value in attrs.items():
 
             # Define attribute name for BaseType instances
@@ -193,9 +205,12 @@ class BaseType(object):
                     value = self.format_for_set(value)
 
             except TypeError as e:
+
+                # Error string defined in exception
                 if str(e):
                     raise e
 
+                # Default error string
                 raise TypeError('Invalid type "{0}" for {1} "{2}"'.format(
                     type(value).__name__, self.__class__.__name__, self.name))
 
