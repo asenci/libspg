@@ -172,10 +172,10 @@ class BaseType(object):
     def __init__(self, tag=None, blank=False):
         self.__doc__ = '{0} value'.format(self.__class__.__name__)
 
-        if tag:
+        if tag is not None:
             self.tag = tag
 
-        if blank:
+        if blank is not None:
             self.blank = blank
 
         self.instance_number = BaseType.instance_count
