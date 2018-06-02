@@ -6,12 +6,12 @@ from setuptools import setup
 
 __title__ = 'libspg'
 __summary__ = 'Python library for interacting with Brazil NPAC SPG'
-__url__ = 'http://bitbucket.org/asenci/libspg'
+__url__ = 'https://github.com/asenci/libspg'
 
 __version__ = '0.2'
 
-__author__ = 'Andre Sencioles Vitorio Oliveira'
-__email__ = 'andre@bcp.net.br'
+__author__ = 'Andre Sencioles'
+__email__ = 'asenci@gmail.com'
 
 __license__ = 'ISC License'
 
